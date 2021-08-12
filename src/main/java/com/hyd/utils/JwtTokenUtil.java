@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.security.*;
 import java.util.Date;
 
+/**
+ * JwtToken 工具类
+ */
 public class JwtTokenUtil {
 	/**
 	 * 密钥生成命令如下，口令为：123456

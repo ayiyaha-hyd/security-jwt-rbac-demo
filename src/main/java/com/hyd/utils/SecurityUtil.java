@@ -4,6 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Security 工具类
+ */
 public class SecurityUtil {
 	private static final BCryptPasswordEncoder B_CRYPT_PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -12,6 +15,14 @@ public class SecurityUtil {
 	 */
 	public static Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
+	}
+
+	/**
+	 * 更新 Authentication 对象
+	 * @param authentication
+	 */
+	public static void setAuthentication(Authentication authentication){
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
 	/**

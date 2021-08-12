@@ -1,5 +1,5 @@
 server:
-  port: 1234
+  port: 80
 logging:
   level:
     com.hyd: debug

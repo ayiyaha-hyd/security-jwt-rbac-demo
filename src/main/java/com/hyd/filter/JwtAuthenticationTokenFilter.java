@@ -2,6 +2,7 @@ package com.hyd.filter;
 
 import com.hyd.security.MyUserDetailService;
 import com.hyd.utils.JwtTokenUtil;
+import com.hyd.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 				//如果系统中有该用户信息
 				if (userDetails != null) {
 					//根据userDetails构建 Authentication
+					//用户名对应 principal 属性字段
+					//密码对应 credentials 属性字段
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
 					//设置authentication中details
+					//调用父类方法为 details 字段赋值
+					//从 request 中 获取 remoteAddress,sessionId 为 WebAuthenticationDetails 赋值
 					//TODO 已经根据 userDetails 构建了authentication，为什么此处需要如下操作?
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
 
 					//将当前用户的认证信息放到 Security 上下文信息中
-					SecurityContextHolder.getContext().setAuthentication(authentication);
+					SecurityUtil.setAuthentication(authentication);
 				}
 			}
 		}

@@ -9,3 +9,7 @@ http://www.iocoder.cn/Fight/Separate-SpringBoot-SpringSecurity-JWT-RBAC-from-fro
 https://github.com/YunaiV/RuoYi-Vue
 
 https://github.com/yangzongzhuan/RuoYi-Vue
+
+http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
+
+---
