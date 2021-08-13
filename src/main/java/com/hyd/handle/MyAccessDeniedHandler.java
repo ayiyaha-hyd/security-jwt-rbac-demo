@@ -18,6 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e){
-		ServletUtil.renderString(httpServletResponse, JSON.toJSONString(CommonResult.failure(ErrorCode.NO_PERMISSION)));
+		ServletUtil.renderString(httpServletResponse, JSON.toJSONString(CommonResult.failure(ErrorCode.NO_PERMISSION,e.getMessage())));
 	}
 }

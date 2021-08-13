@@ -25,7 +25,6 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-	Class clazz;
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 	@Autowired
 	private MyUserDetailService userDetailService;
@@ -50,12 +49,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 					//根据userDetails构建 Authentication
 					//用户名对应 principal 属性字段
 					//密码对应 credentials 属性字段
-					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+					//TODO 但此处用户名和密码都存放在 principal 中 ？？
+					UsernamePasswordAuthenticationToken authentication =
+							new UsernamePasswordAuthenticationToken(
+//									userDetails.getUsername(),
+//									userDetails.getPassword(),
+									userDetails,
+									null,
+									userDetails.getAuthorities()
+							);
 
 					//设置authentication中details
 					//调用父类方法为 details 字段赋值
 					//从 request 中 获取 remoteAddress,sessionId 为 WebAuthenticationDetails 赋值
-					//TODO 已经根据 userDetails 构建了authentication，为什么此处需要如下操作?
+					//details 存储有关身份验证请求的其他详细信息。 这些可能是 IP 地址、证书序列号等
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
 
 					//将当前用户的认证信息放到 Security 上下文信息中
