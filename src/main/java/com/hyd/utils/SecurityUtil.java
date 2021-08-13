@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Security 工具类
  */
 public class SecurityUtil {
+	//TODO 可以通过Spring来管理，实现单例
 	private static final BCryptPasswordEncoder B_CRYPT_PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	/**

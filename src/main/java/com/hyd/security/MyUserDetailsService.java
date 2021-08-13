@@ -8,22 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Component
-public class MyUserDetailService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
 	private SysPermissionService sysPermissionService;
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username){
 		//构建用户信息的逻辑(取数据库/LDAP等用户信息)
 		SysUser sysUser = sysUserService.selectUserByUserName(username);
+		if(Objects.isNull(sysUser)){
+			return null;
+		}
 		//获取用户权限信息
 		Set<? extends GrantedAuthority> authorities = sysPermissionService.getAuthority(sysUser);
 		return createLoginUser(sysUser,authorities);
